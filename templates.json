@@ -2139,6 +2139,80 @@
       "image": "quay.io/podman/stable",
       "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine-bootbox:latest proVision container",
       "network": "host"
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "title": "Provisioner BootBox Disconnected (Eagle Rare - Prerelease)",
+      "description": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease) based on Alpine Linux 3.21 Operating System",
+      "categories": [
+        "Provisioner Recipe",
+        "operating-system"
+      ],
+      "platform": "linux",
+      "logo": "https://alpinelinux.org/alpine-logo.png",
+      "env": [
+        {
+          "name": "USERNAME",
+          "label": "Root Username",
+          "description": "OPTIONAL: Root Username for operating system.",
+          "default": "sys-admin"
+        },
+        {
+          "name": "PASSWORD",
+          "label": "Root Password",
+          "description": "OPTIONAL: Root Password for operating system.",
+          "default": "P@ssw0rd!"
+        },
+        {
+          "name": "POWEROFF_REBOOT",
+          "label": "Poweroff or Reboot",
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
+        },
+        {
+          "name": "DEBUG_MODE",
+          "label": "Debug Mode",
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "container": "/host/",
+          "bind": "/"
+        },
+        {
+          "container": "/run/podman/podman.sock",
+          "bind": "/run/podman/podman.sock"
+        }
+      ],
+      "privileged": true,
+      "restart_policy": "no",
+      "note": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease)",
+      "image": "quay.io/podman/stable",
+      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine-bootbox-disconnected:latest proVision container",
+      "network": "host"
     }
   ]
 }
