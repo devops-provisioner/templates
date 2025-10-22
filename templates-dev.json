@@ -60,7 +60,8 @@
       "platform": "linux",
       "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/ubuntu.png",
       "image": "ubuntu:latest",
-      "command": "/bin/bash"
+      "command": "/bin/bash",
+      "interactive": true
     },
     {
       "id": 4,
@@ -73,7 +74,8 @@
       "platform": "linux",
       "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/node.png",
       "image": "node:latest",
-      "command": "/bin/bash"
+      "command": "/bin/bash",
+      "interactive": true
     },
     {
       "id": 5,
@@ -971,7 +973,8 @@
           "container": "/licsrv/licenses"
         }
       ],
-      "image": "softingindustrial/floating-license-server:latest"
+      "image": "softingindustrial/floating-license-server:latest",
+      "interactive": true
     },
     {
       "id": 39,
@@ -1456,7 +1459,14 @@
         },
         {
           "name": "OR_I_ACCEPT_EULA",
-          "label": "Accept EULA"
+          "label": "Accept EULA",
+          "select": [
+            {
+              "text": "Yes, I accept",
+              "value": "true",
+              "default": true
+            }
+          ]
         }
       ],
       "note": "More information about the \u003ca href=\"https://www.opc-router.com/terms-of-use-and-eula/?utm_source=DockerHub_runtime\u0026utm_medium=click\u0026utm_campaign=TermsOfUseAndEula\" target=\"_blank\"\u003eEULA\u003c/a\u003e."
@@ -1619,7 +1629,14 @@
       "env": [
         {
           "name": "EULA",
-          "label": "Accept Igntion EULA"
+          "label": "Accept Igntion EULA",
+          "select": [
+            {
+              "text": "Yes, I accept",
+              "value": "Y",
+              "default": true
+            }
+          ]
         },
         {
           "name": "adminuser",
@@ -1635,7 +1652,22 @@
         },
         {
           "name": "gwedition",
-          "label": "Gateway Edition"
+          "label": "Gateway Edition",
+          "select": [
+            {
+              "text": "Standard",
+              "value": "standard",
+              "default": true
+            },
+            {
+              "text": "Edge",
+              "value": "edge"
+            },
+            {
+              "text": "Maker",
+              "value": "maker"
+            }
+          ]
         }
       ],
       "note": "For TZ see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
@@ -1682,7 +1714,14 @@
         },
         {
           "name": "ACCEPT_EULA",
-          "label": "Accept EULA"
+          "label": "Accept EULA",
+          "select": [
+            {
+              "text": "Yes, I accept",
+              "value": "true",
+              "default": true
+            }
+          ]
         }
       ]
     },
@@ -1718,6 +1757,21 @@
     },
     {
       "id": 71,
+      "type": 3,
+      "title": "Litmus Edge Digital Factory Demo",
+      "description": "Demo System for Litmus Edge. Litmus Edge is an edge data platform that enables industrial AI at scale. It connects, processes, and analyzes real-time OT data at the edge to power smart manufacturing. Note: Requires 5GB Disk Space / 3GB RAM available on the Host for deployment to succeed.",
+      "categories": [
+        "edge"
+      ],
+      "platform": "linux",
+      "logo": "https://www.gravatar.com/avatar/3c545a4e847eb960bfc9bf5bf877c979?s=120\u0026r=g\u0026d=404",
+      "repository": {
+        "url": "https://github.com/portainer/templates",
+        "stackfile": "edge/litmusedge_dfd/docker-compose.yml"
+      }
+    },
+    {
+      "id": 72,
       "type": 1,
       "title": "Ubuntu 24.04",
       "description": "Provisions Ubuntu 24.04 LTS Operating System",
@@ -1743,12 +1797,34 @@
         {
           "name": "POWEROFF_REBOOT",
           "label": "Poweroff or Reboot",
-          "description": "This is what to do after the system provisioning is complete."
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
         },
         {
           "name": "DEBUG_MODE",
           "label": "Debug Mode",
-          "description": "When set to true a more verbose installation output."
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
         }
       ],
       "volumes": [
@@ -1762,13 +1838,14 @@
         }
       ],
       "privileged": true,
+      "restart_policy": "no",
       "note": "Provisions Ubuntu 24.04 LTS Operating System",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-ubuntu:24.04 proVision container",
+      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-ubuntu:latest proVision container",
       "network": "host"
     },
     {
-      "id": 72,
+      "id": 73,
       "type": 1,
       "title": "Debian Bookworm",
       "description": "Provisions Debian Bookworm Operating System",
@@ -1794,12 +1871,34 @@
         {
           "name": "POWEROFF_REBOOT",
           "label": "Poweroff or Reboot",
-          "description": "This is what to do after the system provisioning is complete."
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
         },
         {
           "name": "DEBUG_MODE",
           "label": "Debug Mode",
-          "description": "When set to true a more verbose installation output."
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
         }
       ],
       "volumes": [
@@ -1813,13 +1912,14 @@
         }
       ],
       "privileged": true,
+      "restart_policy": "no",
       "note": "Provisions Debian Bookworm Operating System",
       "image": "quay.io/podman/stable",
       "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-debian:bookworm proVision container",
       "network": "host"
     },
     {
-      "id": 73,
+      "id": 74,
       "type": 1,
       "title": "Alpine Linux 3.21",
       "description": "Provisions Alpine Linux 3.21 Operating System",
@@ -1845,12 +1945,34 @@
         {
           "name": "POWEROFF_REBOOT",
           "label": "Poweroff or Reboot",
-          "description": "This is what to do after the system provisioning is complete."
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
         },
         {
           "name": "DEBUG_MODE",
           "label": "Debug Mode",
-          "description": "When set to true a more verbose installation output."
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
         }
       ],
       "volumes": [
@@ -1864,13 +1986,14 @@
         }
       ],
       "privileged": true,
+      "restart_policy": "no",
       "note": "Provisions Alpine Linux 3.21 Operating System",
       "image": "quay.io/podman/stable",
       "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-alpine:latest proVision container",
       "network": "host"
     },
     {
-      "id": 74,
+      "id": 75,
       "type": 1,
       "title": "Tiny Core Linux 15.0",
       "description": "Provisions Tiny Core Linux 15.0 Operating System",
@@ -1896,12 +2019,34 @@
         {
           "name": "POWEROFF_REBOOT",
           "label": "Poweroff or Reboot",
-          "description": "This is what to do after the system provisioning is complete."
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
         },
         {
           "name": "DEBUG_MODE",
           "label": "Debug Mode",
-          "description": "When set to true a more verbose installation output."
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
         }
       ],
       "volumes": [
@@ -1915,9 +2060,158 @@
         }
       ],
       "privileged": true,
+      "restart_policy": "no",
       "note": "Provisions Tiny Core Linux 15.0 Operating System",
       "image": "quay.io/podman/stable",
       "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-tinycore:15.0 proVision container",
+      "network": "host"
+    },
+    {
+      "id": 76,
+      "type": 1,
+      "title": "Provisioner BootBox (Eagle Rare - Prerelease)",
+      "description": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease) based on Alpine Linux 3.21 Operating System",
+      "categories": [
+        "Provisioner Recipe",
+        "operating-system"
+      ],
+      "platform": "linux",
+      "logo": "https://alpinelinux.org/alpine-logo.png",
+      "env": [
+        {
+          "name": "USERNAME",
+          "label": "Root Username",
+          "description": "OPTIONAL: Root Username for operating system.",
+          "default": "sys-admin"
+        },
+        {
+          "name": "PASSWORD",
+          "label": "Root Password",
+          "description": "OPTIONAL: Root Password for operating system.",
+          "default": "P@ssw0rd!"
+        },
+        {
+          "name": "POWEROFF_REBOOT",
+          "label": "Poweroff or Reboot",
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
+        },
+        {
+          "name": "DEBUG_MODE",
+          "label": "Debug Mode",
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "container": "/host/",
+          "bind": "/"
+        },
+        {
+          "container": "/run/podman/podman.sock",
+          "bind": "/run/podman/podman.sock"
+        }
+      ],
+      "privileged": true,
+      "restart_policy": "no",
+      "note": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease)",
+      "image": "quay.io/podman/stable",
+      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-alpine-bootbox:latest proVision container",
+      "network": "host"
+    },
+    {
+      "id": 77,
+      "type": 1,
+      "title": "Provisioner BootBox Disconnected (Eagle Rare - Prerelease)",
+      "description": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease) based on Alpine Linux 3.21 Operating System",
+      "categories": [
+        "Provisioner Recipe",
+        "operating-system"
+      ],
+      "platform": "linux",
+      "logo": "https://alpinelinux.org/alpine-logo.png",
+      "env": [
+        {
+          "name": "USERNAME",
+          "label": "Root Username",
+          "description": "OPTIONAL: Root Username for operating system.",
+          "default": "sys-admin"
+        },
+        {
+          "name": "PASSWORD",
+          "label": "Root Password",
+          "description": "OPTIONAL: Root Password for operating system.",
+          "default": "P@ssw0rd!"
+        },
+        {
+          "name": "POWEROFF_REBOOT",
+          "label": "Poweroff or Reboot",
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Power Off",
+              "value": "poweroff",
+              "default": true
+            },
+            {
+              "text": "Reboot",
+              "value": "reboot"
+            }
+          ]
+        },
+        {
+          "name": "DEBUG_MODE",
+          "label": "Debug Mode",
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "container": "/host/",
+          "bind": "/"
+        },
+        {
+          "container": "/run/podman/podman.sock",
+          "bind": "/run/podman/podman.sock"
+        }
+      ],
+      "privileged": true,
+      "restart_policy": "no",
+      "note": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease)",
+      "image": "quay.io/podman/stable",
+      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock 10.55.2.12:5000/theprovisioner/recipe-alpine-bootbox-disconnected:latest proVision container",
       "network": "host"
     }
   ]
