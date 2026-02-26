@@ -1841,7 +1841,7 @@
       "restart_policy": "no",
       "note": "Provisions Ubuntu 24.04 LTS Operating System",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-ubuntu:latest proVision container",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-ubuntu:latest proVision container",
       "network": "host"
     },
     {
@@ -1915,7 +1915,7 @@
       "restart_policy": "no",
       "note": "Provisions Debian Bookworm Operating System",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-debian:bookworm proVision container",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-debian:bookworm proVision container",
       "network": "host"
     },
     {
@@ -1989,7 +1989,7 @@
       "restart_policy": "no",
       "note": "Provisions Alpine Linux 3.21 Operating System",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine:latest proVision container",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine:latest proVision container",
       "network": "host"
     },
     {
@@ -2063,7 +2063,7 @@
       "restart_policy": "no",
       "note": "Provisions Tiny Core Linux 15.0 Operating System",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-tinycore:15.0 proVision container",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-tinycore:15.0 proVision container",
       "network": "host"
     },
     {
@@ -2137,7 +2137,7 @@
       "restart_policy": "no",
       "note": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease)",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine-bootbox:latest proVision container",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine-bootbox:latest proVision container",
       "network": "host"
     },
     {
@@ -2211,7 +2211,151 @@
       "restart_policy": "no",
       "note": "Provisions the Provisioner BootBox (Eagle Rare - Prerelease)",
       "image": "quay.io/podman/stable",
-      "command": "/host/bin/podman-remote --url unix:///run/podman/podman.sock run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine-bootbox-disconnected:latest proVision container",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e USERNAME -e PASSWORD -e POWEROFF_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-alpine-bootbox-disconnected:latest proVision container",
+      "network": "host"
+    },
+    {
+      "id": 78,
+      "type": 1,
+      "title": "Kairos Linux (Ubuntu 24.04)",
+      "description": "Provisions Kairos immutable Linux OS based on Ubuntu 24.04",
+      "categories": [
+        "Provisioner Recipe",
+        "operating-system",
+        "immutable"
+      ],
+      "platform": "linux",
+      "logo": "https://kairos.io/images/kairos-logo.svg",
+      "env": [
+        {
+          "name": "KAIROS_IMAGE",
+          "label": "Kairos Source Image",
+          "description": "OPTIONAL: Override the Kairos OCI image to install.",
+          "default": "quay.io/kairos/ubuntu:24.04-core-amd64-generic-v3.5.7"
+        },
+        {
+          "name": "POWER_REBOOT",
+          "label": "Poweroff or Reboot",
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Reboot",
+              "value": "reboot",
+              "default": true
+            },
+            {
+              "text": "Power Off",
+              "value": "poweroff"
+            }
+          ]
+        },
+        {
+          "name": "DEBUG_MODE",
+          "label": "Debug Mode",
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "container": "/host/",
+          "bind": "/"
+        },
+        {
+          "container": "/run/podman/podman.sock",
+          "bind": "/run/podman/podman.sock"
+        }
+      ],
+      "privileged": true,
+      "restart_policy": "no",
+      "note": "Provisions Kairos immutable Linux OS. Kairos handles its own disk partitioning with A/B upgrade support.",
+      "image": "quay.io/podman/stable",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e KAIROS_IMAGE -e POWER_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-kairos:latest deploy recipe",
+      "network": "host"
+    },
+    {
+      "id": 79,
+      "type": 1,
+      "title": "Kairos Linux with Spectro Cloud Palette Agent",
+      "description": "Provisions Kairos immutable Linux OS with Spectro Cloud Palette Agent for edge device management",
+      "categories": [
+        "Provisioner Recipe",
+        "operating-system",
+        "immutable",
+        "edge"
+      ],
+      "platform": "linux",
+      "logo": "https://kairos.io/images/kairos-logo.svg",
+      "env": [
+        {
+          "name": "PALETTE_REGISTRATION_TOKEN",
+          "label": "Palette Registration Token",
+          "description": "REQUIRED: Token for registering with Spectro Cloud Palette."
+        },
+        {
+          "name": "KAIROS_IMAGE",
+          "label": "Kairos Source Image",
+          "description": "OPTIONAL: Override the Kairos OCI image to install.",
+          "default": "quay.io/kairos/ubuntu:24.04-core-amd64-generic-v3.5.7"
+        },
+        {
+          "name": "POWER_REBOOT",
+          "label": "Poweroff or Reboot",
+          "description": "This is what to do after the system provisioning is complete.",
+          "select": [
+            {
+              "text": "Reboot",
+              "value": "reboot",
+              "default": true
+            },
+            {
+              "text": "Power Off",
+              "value": "poweroff"
+            }
+          ]
+        },
+        {
+          "name": "DEBUG_MODE",
+          "label": "Debug Mode",
+          "description": "When set to true a more verbose installation output.",
+          "select": [
+            {
+              "text": "False",
+              "value": "false",
+              "default": true
+            },
+            {
+              "text": "True",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "volumes": [
+        {
+          "container": "/host/",
+          "bind": "/"
+        },
+        {
+          "container": "/run/podman/podman.sock",
+          "bind": "/run/podman/podman.sock"
+        }
+      ],
+      "privileged": true,
+      "restart_policy": "no",
+      "note": "Provisions Kairos with Spectro Cloud Palette Agent. After installation, the device will register with your Palette endpoint for edge management.",
+      "image": "quay.io/podman/stable",
+      "command": "podman --remote run -it --name=recipe --privileged --network=host --tls-verify=false -e PALETTE_REGISTRATION_TOKEN -e KAIROS_IMAGE -e POWER_REBOOT -e DEBUG_MODE -v /dev:/dev -v /sys:/sys -v /:/host -v /run/podman/podman.sock:/run/podman/podman.sock theprovisioner/recipe-kairos:latest deploy recipe",
       "network": "host"
     }
   ]
